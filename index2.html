@@ -988,10 +988,10 @@
                     </p>
 
                     <div class="progress-group">
-                      CARS
+                      Car
                       <span class="float-right"><b>8</b>/25</span>
                       <div class="progress progress-sm">
-                        <div class="progress-bar bg-primary" style="width: 32%"></div>
+                        <div class="progress-bar bg-danger" style="width: 32%"></div>
                       </div>
                     </div>
                     <!-- /.progress-group -->
@@ -1006,19 +1006,33 @@
 
                     <!-- /.progress-group -->
                     <div class="progress-group">
-                      <span class="progress-text">Bikes</span>
+                      <span class="progress-text">Bike</span>
                       <span class="float-right"><b>4</b>/25</span>
                       <div class="progress progress-sm">
-                        <div class="progress-bar bg-success" style="width: 60%"></div>
+                        <div class="progress-bar bg-success" style="width: 16%"></div>
                       </div>
                     </div>
 
                     <!-- /.progress-group -->
                     <div class="progress-group">
-                      Send Inquiries
-                      <span class="float-right"><b>250</b>/500</span>
+                      Bus
+                      <span class="float-right"><b>1</b>/25</span>
                       <div class="progress progress-sm">
-                        <div class="progress-bar bg-warning" style="width: 50%"></div>
+                        <div class="progress-bar bg-primary" style="width: 5%"></div>
+                      </div>
+                    </div>
+                    <div class="progress-group">
+                      Van
+                      <span class="float-right"><b>1</b>/25</span>
+                      <div class="progress progress-sm">
+                        <div class="progress-bar bg-primary" style="width: 5%"></div>
+                      </div>
+                    </div>
+                    <div class="progress-group">
+                      Truck
+                      <span class="float-right"><b>1</b>/25</span>
+                      <div class="progress progress-sm">
+                        <div class="progress-bar bg-primary" style="width: 5%"></div>
                       </div>
                     </div>
                     <!-- /.progress-group -->
@@ -1108,7 +1122,7 @@
                           <i class="far fa-chart-bar"></i>
                           Bar Chart
                         </h3>
-        
+
                         <div class="card-tools">
                           <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
@@ -1124,26 +1138,27 @@
                       <!-- /.card-body-->
                     </div>
                   </div>
-                  <div class="card-pane-right bg-success pt-2 pb-2 pl-4 pr-4">
-                    <div class="description-block mb-4">
+                  <!-- <div class="card-pane-right bg-success pt-2 pb-2 pl-4 pr-4"> -->
+                    <!-- <div class="description-block mb-4">
                       <div class="sparkbar pad" data-color="#fff">90,70,90,70,75,80,70</div>
                       <h5 class="description-header">8390</h5>
                       <span class="description-text">Visits</span>
-                    </div>
+                    </div> -->
                     <!-- /.description-block -->
-                    <div class="description-block mb-4">
+                    <!-- <div class="description-block mb-4">
                       <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
                       <h5 class="description-header">30%</h5>
                       <span class="description-text">Referrals</span>
-                    </div>
+                    </div> -->
                     <!-- /.description-block -->
-                    <div class="description-block">
+                    <!-- <div class="description-block">
                       <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
                       <h5 class="description-header">70%</h5>
                       <span class="description-text">Organic</span>
-                    </div>
+                    </div> -->
                     <!-- /.description-block -->
-                  </div><!-- /.card-pane-right -->
+                  <!-- </div> -->
+                  <!-- /.card-pane-right -->
                 </div><!-- /.d-md-flex -->
               </div>
               <!-- /.card-body -->
@@ -1596,12 +1611,12 @@
                   <!-- /.col -->
                   <div class="col-md-4">
                     <ul class="chart-legend clearfix">
-                      <li><i class="far fa-circle text-danger"></i> Chrome</li>
-                      <li><i class="far fa-circle text-success"></i> IE</li>
-                      <li><i class="far fa-circle text-warning"></i> FireFox</li>
-                      <li><i class="far fa-circle text-info"></i> Safari</li>
-                      <li><i class="far fa-circle text-primary"></i> Opera</li>
-                      <li><i class="far fa-circle text-secondary"></i> Navigator</li>
+                      <li><i class="far fa-circle text-danger"></i> Car</li>
+                      <li><i class="far fa-circle text-success"></i>Rickshaw</li>
+                      <li><i class="far fa-circle text-warning"></i> Bike</li>
+                      <li><i class="far fa-circle text-info"></i> Bus</li>
+                      <li><i class="far fa-circle text-primary"></i> Van</li>
+                      <li><i class="far fa-circle text-secondary"></i> Truck</li>
                     </ul>
                   </div>
                   <!-- /.col -->
@@ -1752,7 +1767,7 @@
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap -->
+<!-- Bootstrap -->cus
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
@@ -1769,7 +1784,7 @@
 <script src="plugins/chart.js/Chart.min.js"></script>
 
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<!-- <script src="dist/js/demo.js"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="dist/js/pages/dashboard2.js"></script> -->
 <script src="plugins/jquery/jquery.min.js"></script>
@@ -2001,26 +2016,26 @@
      * ---------
      */
 
-    var bar_data = {
-      data : [[1,10], [2,8], [3,4], [4,13], [5,17], [6,9]],
-      bars: { show: true }
-    }
-    $.plot('#bar-chart', [bar_data], {
-      grid  : {
-        borderWidth: 1,
-        borderColor: '#f3f3f3',
-        tickColor  : '#f3f3f3'
-      },
-      series: {
-         bars: {
-          show: true, barWidth: 0.5, align: 'center',
-        },
-      },
-      colors: ['#3c8dbc'],
-      xaxis : {
-        ticks: [[1,'January'], [2,'February'], [3,'March'], [4,'April'], [5,'May'], [6,'June']]
-      }
-    })
+    // var bar_data = {
+    //   data : [[1,10], [2,8], [3,4], [4,13], [5,17], [6,9]],
+    //   bars: { show: true }
+    // }
+    // $.plot('#bar-chart', [bar_data], {
+    //   grid  : {
+    //     borderWidth: 1,
+    //     borderColor: '#f3f3f3',
+    //     tickColor  : '#f3f3f3'
+    //   },
+    //   series: {
+    //      bars: {
+    //       show: true, barWidth: 0.5, align: 'center',
+    //     },
+    //   },
+    //   colors: ['#3c8dbc'],
+    //   xaxis : {
+    //     ticks: [[1,'Car'], [2,'Rickshaw'], [3,'Bike'], [4,'Bus'], [5,'Van'], [6,'Truck']]
+    //   }
+    // })
     /* END BAR CHART */
 
     /*
@@ -2080,7 +2095,7 @@
      */
 
      var bar_data = {
-      data : [[1,10], [2,8], [3,4], [4,13], [5,17], [6,9]],
+      data : [[1,8], [2,10], [3,4], [4,1], [5,1], [6,1]],
       bars: { show: true }
     }
     $.plot('#bar-chart', [bar_data], {
@@ -2096,7 +2111,7 @@
       },
       colors: ['#3c8dbc'],
       xaxis : {
-        ticks: [[1,'January'], [2,'February'], [3,'March'], [4,'April'], [5,'May'], [6,'June']]
+        ticks: [[1,'Car'], [2,'Rickshaw'], [3,'Bike'], [4,'Bus'], [5,'Van'], [6,'Truck']]
       }
     })
     /* END BAR CHART */
@@ -2108,16 +2123,16 @@
   var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
   var pieData = {
     labels: [
-      'Chrome',
-      'IE',
-      'FireFox',
-      'Safari',
-      'Opera',
-      'Navigator'
+      'Car',
+      'Rickshaw',
+      'Bike',
+      'Bus',
+      'Van',
+      'Truck'
     ],
     datasets: [
       {
-        data: [700, 500, 400, 600, 300, 100],
+        data: [800, 1000, 400, 50, 50, 50],
         backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de']
       }
     ]
