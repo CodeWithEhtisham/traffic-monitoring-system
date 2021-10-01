@@ -862,7 +862,8 @@
         <div class="row">
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+              <span class="info-box-icon bg-info elevation-1">
+                <i class="fas fa-car"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">CPU Traffic</span>
@@ -983,30 +984,30 @@
                   <!-- /.col -->
                   <div class="col-md-4">
                     <p class="text-center">
-                      <strong>Goal Completion</strong>
+                      <strong>Percentage Of Vehicles</strong>
                     </p>
 
                     <div class="progress-group">
-                      Add Products to Cart
-                      <span class="float-right"><b>160</b>/200</span>
+                      CARS
+                      <span class="float-right"><b>8</b>/25</span>
                       <div class="progress progress-sm">
-                        <div class="progress-bar bg-primary" style="width: 80%"></div>
+                        <div class="progress-bar bg-primary" style="width: 32%"></div>
                       </div>
                     </div>
                     <!-- /.progress-group -->
 
                     <div class="progress-group">
-                      Complete Purchase
-                      <span class="float-right"><b>310</b>/400</span>
+                      Rickshaw
+                      <span class="float-right"><b>10</b>/25</span>
                       <div class="progress progress-sm">
-                        <div class="progress-bar bg-danger" style="width: 75%"></div>
+                        <div class="progress-bar bg-danger" style="width: 40%"></div>
                       </div>
                     </div>
 
                     <!-- /.progress-group -->
                     <div class="progress-group">
-                      <span class="progress-text">Visit Premium Page</span>
-                      <span class="float-right"><b>480</b>/800</span>
+                      <span class="progress-text">Bikes</span>
+                      <span class="float-right"><b>4</b>/25</span>
                       <div class="progress progress-sm">
                         <div class="progress-bar bg-success" style="width: 60%"></div>
                       </div>
@@ -1098,8 +1099,29 @@
                 <div class="d-md-flex">
                   <div class="p-1 flex-fill" style="overflow: hidden">
                     <!-- Map will be created here -->
-                    <div id="containermap" style="height: 325px; overflow: hidden">
+                    <!-- <div id="containermap" style="height: 325px; overflow: hidden">
                       <div class="map"></div>
+                    </div> -->
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title">
+                          <i class="far fa-chart-bar"></i>
+                          Bar Chart
+                        </h3>
+        
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                          </button>
+                          <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <div id="bar-chart" style="height: 300px;"></div>
+                      </div>
+                      <!-- /.card-body-->
                     </div>
                   </div>
                   <div class="card-pane-right bg-success pt-2 pb-2 pl-4 pr-4">
@@ -1749,7 +1771,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard2.js"></script>
+<!-- <script src="dist/js/pages/dashboard2.js"></script> -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -1766,11 +1788,11 @@
 <!-- Page specific script -->
 <!-- <script> -->
 <script>
-$(".containermap").mapael({
-    map : {
-        name : "world_countries"
-    }
-});
+// $(".containermap").mapael({
+//     map : {
+//         name : "world_countries"
+//     }
+// });
 
   $(function () {
     /*
@@ -2052,6 +2074,72 @@ $(".containermap").mapael({
    * Custom Label formatter
    * ----------------------
    */
+   /*
+     * BAR CHART
+     * ---------
+     */
+
+     var bar_data = {
+      data : [[1,10], [2,8], [3,4], [4,13], [5,17], [6,9]],
+      bars: { show: true }
+    }
+    $.plot('#bar-chart', [bar_data], {
+      grid  : {
+        borderWidth: 1,
+        borderColor: '#f3f3f3',
+        tickColor  : '#f3f3f3'
+      },
+      series: {
+         bars: {
+          show: true, barWidth: 0.5, align: 'center',
+        },
+      },
+      colors: ['#3c8dbc'],
+      xaxis : {
+        ticks: [[1,'January'], [2,'February'], [3,'March'], [4,'April'], [5,'May'], [6,'June']]
+      }
+    })
+    /* END BAR CHART */
+
+    //-------------
+  // - PIE CHART -
+  //-------------
+  // Get context with jQuery - using jQuery's .get() method.
+  var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+  var pieData = {
+    labels: [
+      'Chrome',
+      'IE',
+      'FireFox',
+      'Safari',
+      'Opera',
+      'Navigator'
+    ],
+    datasets: [
+      {
+        data: [700, 500, 400, 600, 300, 100],
+        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de']
+      }
+    ]
+  }
+  var pieOptions = {
+    legend: {
+      display: false
+    }
+  }
+  // Create pie or douhnut chart
+  // You can switch between pie and douhnut using the method below.
+  // eslint-disable-next-line no-unused-vars
+  var pieChart = new Chart(pieChartCanvas, {
+    type: 'doughnut',
+    data: pieData,
+    options: pieOptions
+  })
+
+  //-----------------
+  // - END PIE CHART -
+  //-----------------
+
   function labelFormatter(label, series) {
     return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
       + label
