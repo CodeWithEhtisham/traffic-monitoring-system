@@ -51,6 +51,7 @@ def insert_record(conn,insert_query,data):
     try:
         c=conn.cursor()
         c.execute(insert_query,data)
+        c.commit()
         print("Insertion Data Seccessfull")
     except Error as e:
         print(e)
