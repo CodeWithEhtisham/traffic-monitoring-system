@@ -1,6 +1,6 @@
 from re import M
 import sqlite3
-from utils import *
+from model.utils import *
 from model.definition import Main,LineCross,Details
 
 

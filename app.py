@@ -5,6 +5,9 @@ import model.database as db
 import sqlite3
 import model.utils as ut
 from model.definition import Main,LineCross,Details,database
+import base64
+import cv2
+import numpy as np
 
 conn = ut.create_connection(database)
 
@@ -32,31 +35,35 @@ def index():
 def VehicleCounting():
     if request.method=="POST":
         try:
-            # img_str = request.json['image']
-            # tag = request.json["tag"]
-            # camera_id = request.json['camera_id']
-            # camera_loc = request.json['camera_loc']
-            # date_time=request.json["datetime"]
-            # results = request.json['results']
+            img_str = request.json['image']
+            camera_id = request.json["camera_id"]
+            camera_no = request.json['camera_no']
+            camera_location = request.json['camera_location']
+            date_time=request.json["date_time"]
+            results = request.json['results']
             # img_byte=base64.b64decode(img_str.encode('utf-8'))
             # img=Image.open(io.BytesIO(img_byte))
             # img.save(f"static/img/output.jpg")
             # # img.save(f"static/img/{tag}.jpg")
-            # # jpg_original = base64.b64decode(img_str)
-            # # jpg_as_np = np.frombuffer(jpg_original, dtype=np.uint8)
-            # # img = imdecode(jpg_as_np, flags=1)
-            # frame_id = db_data_insertion(
-            #     (camera_id, camera_loc,date_time , tag))
-            # # imwrite(f"static/img/output.jpg", img)
+            jpg_original = base64.b64decode(img_str)
+            jpg_as_np = np.frombuffer(jpg_original, dtype=np.uint8)
+            img = cv2.imdecode(jpg_as_np, flags=1)
+            # print(camera_id,camera_location,camera_no,date_time,results)
+            # print(img.shape)
+            frame_id = ut.insert_record(conn,db.insert_Main_table,(camera_id,camera_location,camera_no,date_time,"IMG_PATH"))
+            # print(frame_id)
+            # imwrite(f"static/img/output.jpg", img)
 
-            # for r in results:
-            #     lbl = r['label']
-            #     prob = r['prob']
-            #     x = r['x']
-            #     y = r['y']
-            #     w = r['w']
-            #     h = r['h']
-            #     db_results_insertion((frame_id, lbl, prob, x, y, w, h))
+            for r in results:
+                lbl = r['label']
+                prob = r['prob']
+                x = r['x']
+                y = r['y']
+                w = r['w']
+                h = r['h']
+                # db_results_insertion((frame_id, lbl, prob, x, y, w, h))
+                ut.insert_record(conn,db.insert_Details_table,(frame_id,x,y,h,w,lbl,prob,"no_plate"))
+
             # waiting=True
             # print("/////////////////////////////////////////////////////////// ({})".format(waiting))
 
@@ -70,4 +77,4 @@ def VehicleCounting():
         return "Get request not allowed"
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0')

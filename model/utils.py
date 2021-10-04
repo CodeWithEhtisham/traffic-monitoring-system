@@ -9,7 +9,7 @@ def create_connection(db_file):
     """
     conn = None
     try:
-        conn = sqlite3.connect(db_file)
+        conn = sqlite3.connect(db_file,check_same_thread=False)
         return conn
     except Error as e:
         print(e)
@@ -51,7 +51,8 @@ def insert_record(conn,insert_query,data):
     try:
         c=conn.cursor()
         c.execute(insert_query,data)
-        c.commit()
+        conn.commit()
         print("Insertion Data Seccessfull")
+        return c.lastrowid
     except Error as e:
         print(e)
