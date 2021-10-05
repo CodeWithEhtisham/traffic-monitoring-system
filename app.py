@@ -25,14 +25,38 @@ def send_result(response=None, error='', status=200):
     result = json.dumps({'result': response, 'error': error})
     return Response(status=status, mimetype="application/json", response=result)
 
+def fetch_data(query=None):
+    if query is None:
+        return ut.fetch_record(conn,db.select_main_query)
+    else:
+        return ut.fetch_record(conn,query)
+
 
 app=Flask(__name__)
 @app.route("/")
 def index():
+    print(fetch_data())
     return render_template('index.html')
 
+@app.route('/api/linecross',methods=['POST'])
+def ApiLineCross():
+    if request.method=='POST':
+        try:
+            cross_line=request.json['Vehicles Crossed Line']
+            tolal_corss=request.json['Total Vehicle Crossed']
+            date_time=request.json['date time']
+            return send_result("Api Line Cross data recieved", status=201)
+        except KeyError as e:
+            return send_result(error=f'An "image" file is required {e}', status=422)
+        except Exception as e:
+            return send_result(error=f'Error {e}', status=500)
+    else:
+        return "Get request not allowed"
+
+
+
 @app.route("/api/VehicleCounting",methods=["POST"])
-def VehicleCounting():
+def ApiVehicleCounting():
     if request.method=="POST":
         try:
             img_str = request.json['image']
@@ -63,6 +87,7 @@ def VehicleCounting():
                 h = r['h']
                 # db_results_insertion((frame_id, lbl, prob, x, y, w, h))
                 ut.insert_record(conn,db.insert_Details_table,(frame_id,x,y,h,w,lbl,prob,"no_plate"))
+            print(fetch_data())
 
             # waiting=True
             # print("/////////////////////////////////////////////////////////// ({})".format(waiting))

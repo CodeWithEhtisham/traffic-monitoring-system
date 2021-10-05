@@ -56,3 +56,20 @@ def insert_record(conn,insert_query,data):
         return c.lastrowid
     except Error as e:
         print(e)
+
+
+# def coustomize_select_query(conn,query):
+#     """ Insert data into table
+#     :param conn: Connection object
+#     :param insert_query: insert query 
+#     :param data: data for insertion 
+#     :return:
+#     """
+#     try:
+#         c=conn.cursor()
+#         c.execute(query)
+#         # conn.commit()
+#         print("Query Seccessfull Run")
+#         return c.las
+#     except Error as e:
+#         print(e)
