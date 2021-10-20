@@ -8,6 +8,7 @@ from model.definition import Main,LineCross,Details,database
 import base64
 import cv2
 import numpy as np
+from flask_socketio import SocketIO,emit
 
 conn = ut.create_connection(database)
 
@@ -33,6 +34,14 @@ def fetch_data(query=None):
 
 
 app=Flask(__name__)
+sio=SocketIO(app)
+
+@sio.on("connect")
+def connect():
+    print("client connected successful")
+    emit("image","sending data server to clint",broadcast=True)
+
+
 @app.route("/")
 def index():
     print(fetch_data())
@@ -42,9 +51,11 @@ def index():
 def ApiLineCross():
     if request.method=='POST':
         try:
-            cross_line=request.json['Vehicles Crossed Line']
-            tolal_corss=request.json['Total Vehicle Crossed']
-            date_time=request.json['date time']
+            no_plate=request.json['NumberPlate']
+            img_path=request.json['ImgPath']
+            video_path=request.json['VideoPath']
+            date_time=request.json['DateTime']
+            ut.insert_record(conn,db.insert_LineCross_table,(no_plate,img_path,video_path,date_time))
             return send_result("Api Line Cross data recieved", status=201)
         except KeyError as e:
             return send_result(error=f'An "image" file is required {e}', status=422)
@@ -102,4 +113,4 @@ def ApiVehicleCounting():
         return "Get request not allowed"
 
 if __name__=="__main__":
-    app.run(debug=True,host='0.0.0.0')
+    sio.run(app,debug=True)
