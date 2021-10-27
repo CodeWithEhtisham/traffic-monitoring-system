@@ -42,7 +42,7 @@ def connect():
     emit('graph data',data={
           't': '2021-10-05 15:55:50.229885',
           'y': 30
-        },bar=[[1, 8], [2, 10], [3, 4], [4, 1], [5, 1], [6, 10]])
+        },bardata="hello")
     # emit("image","sending data server to clint",broadcast=True)
 
 @sio.on('my image')
