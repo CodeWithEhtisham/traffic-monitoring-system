@@ -39,10 +39,10 @@ sio=SocketIO(app)
 @sio.on("connect")
 def connect():
     print("client connected successful")
-    emit('graph data',data={
-          't': '2021-10-05 15:55:50.229885',
-          'y': 30
-        },bardata="hello")
+    # emit('graph data',data={
+    #       't': '2021-10-05 15:55:50.229885',
+    #       'y': 30
+    #     },bardata="hello")
     # emit("image","sending data server to clint",broadcast=True)
 # @sio.on("detection")
 # def detection(json):
@@ -127,6 +127,7 @@ def ApiVehicleCounting():
                     bardata['Motorcycle']+=1
                     continue
             print('emiting data...................................')
+            print(bardata)
             
             sio.emit('index data',data={'indexchart':{
                 't':date_time,
@@ -154,4 +155,4 @@ def ApiVehicleCounting():
         return "Get request not allowed"
 
 if __name__=="__main__":
-    sio.run(app,debug=True)
+    sio.run(app,debug=True,host='0.0.0.0')

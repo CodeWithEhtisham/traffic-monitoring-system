@@ -6,12 +6,12 @@ var myChart = new Chart(index, {
       xAxes: [{
         type: 'time',
       }]
-    },
-    scales: {
-      y: {
-          beginAtZero: true
-      }
-  }
+    }
+  //   scales: {
+  //     y: {
+  //         beginAtZero: true
+  //     }
+  // }
 
   },
   data: {
@@ -59,7 +59,7 @@ var myChart = new Chart(index, {
 
 // BAR CHART CHARTJS
 var bar = document.getElementById("barchart");
-var barchart = new Chart(bar, {
+var barChart = new Chart(bar, {
   type: 'bar',
   data: {
     labels: ["Car", "Bus", 'Truck', "Rickshaw", "Bike", "Van"],
@@ -96,17 +96,17 @@ var barchart = new Chart(bar, {
       ],
       borderWidth: 1
     }]
-  },
-  options: {
-    responsive: true
   }
+  // options: {
+  //   responsive: true
+  // }
 
 });
 
 
 // BAR Chart end chartjs
 var pie = document.getElementById("piechart");
-var piechart = new Chart(pie, {
+var pieChart = new Chart(pie, {
   type: 'doughnut',
   data: {
     labels: ["Car", "Bus", 'Truck', "Rickshaw", "Bike", "Van"],
@@ -180,10 +180,12 @@ sio.on('index data', (data) => {
   // console.log(data['indexchart'])
   // console.log(bardata)
   myChart.data.datasets[0].data.push(data['indexchart'])
-  piechart.data.datasets.data=data['data']
-  barchart.data.datasets.data=data['data']
+  pieChart.data.datasets[0].data=data['data']
+  barChart.data.datasets[0].data=data['data']
+  // console.log(data['data'])
+  // console.log(barChart.data.datasets.data)
   // console.log(myChart.data.datasets[0].data)
   myChart.update()
-  barchart.update()
-  piechart.update()
+  barChart.update()
+  pieChart.update()
 });
