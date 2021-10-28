@@ -44,6 +44,11 @@ def connect():
           'y': 30
         },bardata="hello")
     # emit("image","sending data server to clint",broadcast=True)
+# @sio.on("detection")
+# def detection(json):
+#     image=json['image']
+
+
 
 @sio.on('my image')
 def get_image(image):
@@ -84,20 +89,30 @@ def ApiVehicleCounting():
             camera_location = request.json['camera_location']
             date_time=request.json["date_time"]
             results = request.json['results']
+            
             # img_byte=base64.b64decode(img_str.encode('utf-8'))
             # img=Image.open(io.BytesIO(img_byte))
             # img.save(f"static/img/output.jpg")
             # # img.save(f"static/img/{tag}.jpg")
-            jpg_original = base64.b64decode(img_str)
-            jpg_as_np = np.frombuffer(jpg_original, dtype=np.uint8)
-            img = cv2.imdecode(jpg_as_np, flags=1)
+            # jpg_original = base64.b64decode(img_str)
+            # jpg_as_np = np.frombuffer(jpg_original, dtype=np.uint8)
+            # img = cv2.imdecode(jpg_as_np, flags=1)
             # print(camera_id,camera_location,camera_no,date_time,results)
             # print(img.shape)
+
             frame_id = ut.insert_record(conn,db.insert_Main_table,(camera_id,camera_location,camera_no,date_time,"IMG_PATH"))
             # print(frame_id)
             # imwrite(f"static/img/output.jpg", img)
-
+            count=0
+            bardata={
+                "Car":0, "Bus":0, 'Truck':0, "Auto_rikshw":0, "Motorcycle":0, "Van":0
+            }
+            # bardata=[0,0,0,0,0,0]
+                # "Car"
+            # }
+            # ["Car", "Bus", 'Truck', "Rickshaw", "Bike", "Van"]
             for r in results:
+                count+=1
                 lbl = r['label']
                 prob = r['prob']
                 x = r['x']
@@ -106,7 +121,25 @@ def ApiVehicleCounting():
                 h = r['h']
                 # db_results_insertion((frame_id, lbl, prob, x, y, w, h))
                 ut.insert_record(conn,db.insert_Details_table,(frame_id,x,y,h,w,lbl,prob,"no_plate"))
-            print(fetch_data())
+                try:
+                    bardata[lbl]+=1
+                except:
+                    bardata['Motorcycle']+=1
+                    continue
+            print('emiting data...................................')
+            
+            sio.emit('index data',data={'indexchart':{
+                't':date_time,
+                'y':count
+            },
+            'data':list(bardata.values())
+            },broadcast=True)
+
+
+
+            # pr
+            # int(fetch_data())
+
 
             # waiting=True
             # print("/////////////////////////////////////////////////////////// ({})".format(waiting))

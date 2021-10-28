@@ -1,29 +1,37 @@
-var ctx = document.getElementById("indexchart").getContext("2d");
-var myChart = new Chart(ctx, {
+var index = document.getElementById("indexchart").getContext("2d");
+var myChart = new Chart(index, {
   type: 'line',
   options: {
     scales: {
       xAxes: [{
         type: 'time',
       }]
-    }
+    },
+    scales: {
+      y: {
+          beginAtZero: true
+      }
+  }
+
   },
   data: {
     // labels: ["2015-03-15T13:03:00Z", "2015-03-25T13:02:00Z", "2015-04-25T14:12:00Z"],
     datasets: [{
       label: 'Live Data',
-      data: [{
-        't': '2021-10-05 15:51:45.229885',
-        'y': 20
-      },
-      {
-        't': '2021-10-05 15:51:25.229885',
-        'y': 10
-      },
-      {
-        't': '2021-10-05 15:51:20.229885',
-        'y': 5
-      }]
+      data: [
+      //   {
+      //   't': '2021-10-05 15:51:45.229885',
+      //   'y': 20
+      // },
+      // {
+      //   't': '2021-10-05 15:51:25.229885',
+      //   'y': 10
+      // },
+      // {
+      //   't': '2021-10-05 15:51:20.229885',
+      //   'y': 5
+      // }
+    ]
       ,
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
@@ -44,11 +52,14 @@ var myChart = new Chart(ctx, {
       borderWidth: 1
     }]
   }
+  // options: {
+    
+// }
 });
 
 // BAR CHART CHARTJS
-var ctx = document.getElementById("barchart");
-var myChart = new Chart(ctx, {
+var bar = document.getElementById("barchart");
+var barchart = new Chart(bar, {
   type: 'bar',
   data: {
     labels: ["Car", "Bus", 'Truck', "Rickshaw", "Bike", "Van"],
@@ -94,8 +105,8 @@ var myChart = new Chart(ctx, {
 
 
 // BAR Chart end chartjs
-var ctx = document.getElementById("piechart");
-var myChart = new Chart(ctx, {
+var pie = document.getElementById("piechart");
+var piechart = new Chart(pie, {
   type: 'doughnut',
   data: {
     labels: ["Car", "Bus", 'Truck', "Rickshaw", "Bike", "Van"],
@@ -164,10 +175,15 @@ sio.on("frame", (data) => {
 
 });
 
-sio.on('graph data', (data, bardata) => {
-  console.log("image data recieved website")
-  console.log(data)
-  console.log(bardata)
-  myChart.data.datasets[0].data.push(data)
+sio.on('index data', (data) => {
+  // console.log("image data recieved website")
+  // console.log(data['indexchart'])
+  // console.log(bardata)
+  myChart.data.datasets[0].data.push(data['indexchart'])
+  piechart.data.datasets.data=data['data']
+  barchart.data.datasets.data=data['data']
+  // console.log(myChart.data.datasets[0].data)
   myChart.update()
+  barchart.update()
+  piechart.update()
 });
