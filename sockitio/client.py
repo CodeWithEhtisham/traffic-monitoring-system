@@ -42,7 +42,7 @@ import cv2
 import time
 import base64
 sio = socketio.Client()
-cap=cv2.VideoCapture(0)
+cap=cv2.VideoCapture('D:\\buitems work\\model\\yolov4\\road.mp4')
 # cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')) # depends on fourcc available camera
 # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
@@ -74,6 +74,6 @@ def connect():
 def disconnect():
     print('disconnected from server')
 
-sio.connect('http://127.0.0.1:5000')
+sio.connect('http://192.168.18.200:5000')
 # sio.connect('http://143.110.179.46:4444')
 sio.wait()
