@@ -60,15 +60,24 @@ def index():
     print(fetch_data())
     return render_template('index.html')
 
+# def insertion():
+    # db.fetch_record(conn,db.select_main_query)
+
 @app.route('/api/linecross',methods=['POST'])
 def ApiLineCross():
     if request.method=='POST':
         try:
+            print("data recieved line cross")
             no_plate=request.json['NumberPlate']
+            print("number plate: ",no_plate)
             img_path=request.json['ImgPath']
             video_path=request.json['VideoPath']
             date_time=request.json['DateTime']
             ut.insert_record(conn,db.insert_LineCross_table,(no_plate,img_path,video_path,date_time))
+            print('line cross data emiting.............')
+            sio.emit('linecross',data={
+                'no_plate':no_plate
+            },broadcast=True)
             return send_result("Api Line Cross data recieved", status=201)
         except KeyError as e:
             return send_result(error=f'An "image" file is required {e}', status=422)
@@ -155,4 +164,4 @@ def ApiVehicleCounting():
         return "Get request not allowed"
 
 if __name__=="__main__":
-    sio.run(app,debug=True,host='0.0.0.0')
+    sio.run(app,debug=True,host='192.168.1.65')

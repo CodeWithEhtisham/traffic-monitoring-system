@@ -189,3 +189,10 @@ sio.on('index data', (data) => {
   barChart.update()
   pieChart.update()
 });
+
+sio.on("linecross", (data) => {
+  console.log("linecross recieved")
+  console.log(data)
+  document.getElementById("linecross").textContent = data['no_plate']
+
+});
