@@ -112,12 +112,12 @@ def vehicleCountion_socket(jsons):
         # print('emiting data...................................')
         # print(bardata)
         percentages={
-            "carpercentage":f'{int(bardata["Car"]/len(results))}/{len(results)}',
-            "buspercentage":f'{int(bardata["Bus"]/len(results))}/{len(results)}',
-            'truckpercentage':f'{int(bardata["Truck"]/len(results))}/{len(results)}',
-            "rickshawpercentage":f'{int(bardata["Auto_rikshw"]/len(results))}/{len(results)}',
-            "bikepercentage":f'{int(bardata["Motorcycle"]/len(results))}/{len(results)}',
-            "vanpercentage":f'{int(bardata["Van"]/len(results))}/{len(results)}'
+            "carpercentage":f'{bardata["Car"]}/{len(results)}',
+            "buspercentage":f'{bardata["Bus"]}/{len(results)}',
+            'truckpercentage':f'{bardata["Truck"]}/{len(results)}',
+            "rickshawpercentage":f'{bardata["Auto_rikshw"]}/{len(results)}',
+            "bikepercentage":f'{bardata["Motorcycle"]}/{len(results)}',
+            "vanpercentage":f'{bardata["Van"]}/{len(results)}'
         }
         sio.emit('index data',data={'indexchart':{
             't':date_time,
