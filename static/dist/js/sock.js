@@ -194,5 +194,17 @@ sio.on("linecross", (data) => {
   console.log("linecross recieved")
   console.log(data)
   document.getElementById("linecross").textContent = data['no_plate']
+  document.getElementById("totalsignalbreak").textContent=data['signalcount']
+
+});
+
+sio.on("percentages", (data) =>{
+  console.log(data)
+  document.getElementById("carpercentage").textContent=data['carpercentage']
+  document.getElementById("rickshawpercentage").textContent=data['rickshawpercentage']
+  document.getElementById("bikepercentage").textContent=data['bikepercentage']
+  document.getElementById("truckpercentage").textContent=data['truckpercentage']
+  document.getElementById("buspercentage").textContent=data['buspercentage']
+  document.getElementById("vanpercentage").textContent=data['vanpercentage']
 
 });
