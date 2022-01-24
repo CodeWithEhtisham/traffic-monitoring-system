@@ -32,6 +32,22 @@ def fetch_data(query=None):
     else:
         return ut.fetch_record(conn,query)
 
+def bar_chart_update():
+    value=ut.fetch_record(conn,"select label from details")
+    bardata={
+            "Car":0, "Bus":0, 'Truck':0, "Auto_rikshw":0, "Motorcycle":0, "Van":0
+        }
+    # bardata=[0,0,0,0,0,0]
+        # "Car"
+    # }
+    # ["Car", "Bus", 'Truck', "Rickshaw", "Bike", "Van"]
+    for r in value:
+        try:
+            bardata[r]+=1
+        except:
+            bardata['Motorcycle']+=1
+            continue
+    return bardata
 
 app=Flask(__name__)
 sio=SocketIO(app,cors_allowed_origins='*')
@@ -119,11 +135,13 @@ def vehicleCountion_socket(jsons):
             "bikepercentage":f'{bardata["Motorcycle"]}/{len(results)}',
             "vanpercentage":f'{bardata["Van"]}/{len(results)}'
         }
+        bar=bar_chart_update()
         sio.emit('index data',data={'indexchart':{
             't':date_time,
             'y':count
         },
-        'data':list(bardata.values())
+        'data':list(bardata.values()),
+        'bar':list(bar.values()),
         },broadcast=True)
         sio.emit('percentages',
         data=percentages,
@@ -243,4 +261,4 @@ def index():
     #     return "Get request not allowed"
 
 if __name__=="__main__":
-    sio.run(app,debug=True,host='0.0.0.0')
+    sio.run(app,debug=True)

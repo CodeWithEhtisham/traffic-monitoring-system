@@ -181,7 +181,7 @@ sio.on('index data', (data) => {
   // console.log(bardata)
   myChart.data.datasets[0].data.push(data['indexchart'])
   pieChart.data.datasets[0].data=data['data']
-  barChart.data.datasets[0].data=data['data']
+  barChart.data.datasets[0].data=data['bar']
   // console.log(data['data'])
   // console.log(barChart.data.datasets.data)
   // console.log(myChart.data.datasets[0].data)
@@ -189,6 +189,13 @@ sio.on('index data', (data) => {
   barChart.update()
   pieChart.update()
 });
+
+// sio.on('bar chart update', (data) => {
+//   console.log("bar chart update recieved")
+//   console.log(data)
+//   barChart.data.datasets[0].data=data
+//   barChart.update()
+// });
 
 sio.on("linecross", (data) => {
   console.log("linecross recieved")
