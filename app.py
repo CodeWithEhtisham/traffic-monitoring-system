@@ -33,10 +33,12 @@ def fetch_data(query=None):
         return ut.fetch_record(conn,query)
 
 def bar_chart_update():
-    value=ut.fetch_record(conn,"select label from details")
+    value=ut.fetch_record(conn,"select label from details limit 3000")
     bardata={
             "Car":0, "Bus":0, 'Truck':0, "Auto_rikshw":0, "Motorcycle":0, "Van":0
         }
+    value=[i[0] for i in value]
+    print("value",value)
     # bardata=[0,0,0,0,0,0]
         # "Car"
     # }
@@ -65,6 +67,16 @@ def connect():
 #     image=json['image']
 
 
+@sio.on("average_speed")
+def average_speed(data):
+    print("average speed",data)
+    emit("averagespeed",data,broadcast=True)
+
+@sio.on("number_plate_detection")
+def number_plate_detection(data):
+    print("number plate",data)
+    emit("numberplatedetection",data,broadcast=True)
+
 signalcount=0
 @sio.on('my image')
 def get_image(image):
@@ -78,13 +90,13 @@ def Line_cross_socket(jsons):
         
         print("data recieved line cross")
         no_plate=request.json['NumberPlate']
-        print("number plate: ",no_plate)
+        # print("number plate: ",no_plate)
         img_path=jsons['ImgPath']
         video_path=jsons['VideoPath']
         date_time=jsons['DateTime']
         signalcount+=int(no_plate)
         ut.insert_record(conn,db.insert_LineCross_table,(no_plate,img_path,video_path,date_time))
-        print('line cross data emiting.............')
+        # print('line cross data emiting.............')
         sio.emit('linecross',data={
             'no_plate':no_plate,
             'signalcount':signalcount

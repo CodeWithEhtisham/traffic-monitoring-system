@@ -196,6 +196,19 @@ sio.on('index data', (data) => {
 //   barChart.data.datasets[0].data=data
 //   barChart.update()
 // });
+sio.on("averagespeed", (data) => {
+  document.getElementById("averagespeed").textContent = data;
+
+});
+
+sio.on("numberplatedetection", (data) => {
+  document.getElementById("carnumberplate1").textContent = data;
+
+
+
+
+
+});
 
 sio.on("linecross", (data) => {
   console.log("linecross recieved")
